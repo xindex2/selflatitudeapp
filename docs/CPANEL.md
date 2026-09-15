@@ -55,8 +55,9 @@ works just as well.
 ## What you need either way
 
 - **Node.js 20 or newer** on the server.
-- **SSH access** (cPanel → Security → SSH Access) for the build step. There is no way around this:
-  the client has to be compiled once.
+- **SSH access that actually connects** (cPanel → Security → SSH Access). There is no way around
+  this: the client has to be compiled once. See [Setting up SSH](#setting-up-ssh) — on many shared
+  plans SSH is firewalled until you ask the host to open it.
 - A domain or subdomain pointed at the account, with SSL issued (cPanel → Security → SSL/TLS, or
   AutoSSL). The app requires HTTPS in production.
 - An **OpenAI Platform API key**, and SMTP credentials for outgoing email. Both are entered in the
@@ -75,7 +76,104 @@ Decide where things live before you start:
 
 ---
 
+## Setting up SSH
+
+cPanel's **Security → SSH Access** page only manages *keys*. Whether the SSH port is reachable at
+all is a separate setting that many shared hosts keep closed until you ask.
+
+### 1. Check whether SSH is even reachable
+
+Before doing any key work, run this on your own machine:
+
+```bash
+nc -z -G 5 selflatitude.app 22 && echo "open" || echo "blocked"
+```
+
+- **open** — carry on to step 2.
+- **blocked** — the port is firewalled. No amount of key configuration will help; you have to ask the
+  host (see [If SSH is blocked](#if-ssh-is-blocked)). Some hosts use a non-standard port such as
+  2222, so it is worth asking which port rather than assuming it is off.
+
+### 2. Create a key on your own machine
+
+Generate the key locally so the private half never leaves your computer:
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_selflatitude -C "appselflatitude@selflatitude.app"
+cat ~/.ssh/id_ed25519_selflatitude.pub
+```
+
+### 3. Authorise it in cPanel
+
+cPanel → **Security → SSH Access → Manage SSH Keys → Import Key**:
+
+- Leave the private key box empty.
+- Paste the **public** key (the `ssh-ed25519 AAAA…` line) into the public key box.
+- Give it a name, then **Import**.
+
+Then — and this is the step people miss — click **Manage** next to the imported key and press
+**Authorize**. An imported key that has not been authorised will not let you in.
+
+### 4. Connect
+
+Add this to `~/.ssh/config` on your machine:
+
+```
+Host selflatitude
+    HostName selflatitude.app
+    User appselflatitude
+    Port 22
+    IdentityFile ~/.ssh/id_ed25519_selflatitude
+    IdentitiesOnly yes
+```
+
+Then `ssh selflatitude`. If it hangs, the port is filtered. If it says "Permission denied
+(publickey)", the key is not authorised — go back to step 3.
+
+### If SSH is blocked
+
+You cannot install this application without either *Setup Node.js App* or a working shell. Both come
+from the same place: your host. Open one support ticket and ask for the better option first:
+
+> Hello,
+>
+> For the account **appselflatitude** (`selflatitude.app`) I need to run a Node.js application.
+>
+> 1. Please enable the **CloudLinux Node.js Selector** — it appears in cPanel as *Setup Node.js App*
+>    under Software — with Node.js 20 or 22 available. This is my preferred option.
+> 2. If that is not possible on this plan, please enable **SSH access** for the account and tell me
+>    which port and hostname to use, and whether `mod_proxy` and `mod_proxy_http` are available for
+>    `.htaccess` rules.
+>
+> Could you also confirm whether long-running background processes are permitted on this plan?
+>
+> Thank you.
+
+The answer to that last question matters. If long-running processes are not allowed, this app cannot
+live on the plan at all, no matter which option they enable, and the right move is the dedicated
+server in the build brief or a small VPS with [docs/DEPLOY.md](DEPLOY.md).
+
+### Finding out what is on the server without a shell
+
+While you wait, cPanel's **Advanced → Cron Jobs** can run a one-off command, which is enough to learn
+what you are dealing with. Add a cron job set to run once in a few minutes:
+
+```
+cd ~ && { echo "--- $(date)"; uname -a; echo "node: $(command -v node || echo none) $(node -v 2>/dev/null)"; echo "npm: $(command -v npm || echo none)"; echo "git: $(command -v git || echo none)"; echo "gcc: $(command -v gcc || echo none)"; free -m 2>/dev/null | head -2; } > ~/probe.txt 2>&1
+```
+
+Then read `probe.txt` in **File Manager** (it will be in your home directory, above `public_html`).
+Delete the cron job afterwards. That tells you whether Node, npm, git and a compiler are present
+before you commit to a path.
+
+---
+
 ## Path A — Setup Node.js App (recommended)
+
+> If *Setup Node.js App* is missing from your Software section, this path is not available yet.
+> See [If SSH is blocked](#if-ssh-is-blocked) for the message to send your host. Note that **Site
+> Software** is an unrelated legacy feature for PHP scripts — "Contact your host to install the Site
+> Software packages" is not about Node.js.
 
 ### 1. Get the code onto the server
 
@@ -156,8 +254,9 @@ Now go to [First run](#first-run).
 
 ## Path B — SSH with a cron keepalive
 
-Use this only when the host will not enable Node.js support. Check first that a proxy is even
-possible, because the whole approach depends on it.
+Use this only when the host will not enable Node.js support. It needs a working shell first — see
+[Setting up SSH](#setting-up-ssh). Check also that a proxy is possible, because the whole approach
+depends on it.
 
 ### 1. Check that Apache will proxy to a local port
 

@@ -11,7 +11,7 @@ import { one, run, nowIso, getSetting } from '../db/db.js';
 import { config } from '../config.js';
 import { newId, verifyPassword } from '../lib/crypto.js';
 import { badRequest, notFound, parse, wrap, limiter } from '../lib/http.js';
-import { requireAuth, isAdmin, loadSessionUser } from '../middleware/auth.js';
+import { requireAuth, isAdmin } from '../middleware/auth.js';
 import { audit } from '../lib/audit.js';
 import { issueLoginCode, verifyLoginCode } from '../lib/loginCodes.js';
 import { DEFAULT_SUPPORT_SETTINGS, type SupportSettings } from '../lib/defaults.js';
@@ -165,4 +165,3 @@ profileRouter.post(
 /** GET /api/profile/support - contact details for the Help page. */
 profileRouter.get('/support', wrap((_req, res) => res.json({ support: supportSettings() })));
 
-void loadSessionUser;

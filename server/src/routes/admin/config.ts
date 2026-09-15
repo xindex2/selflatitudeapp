@@ -368,4 +368,3 @@ adminConfigRouter.put(
   }),
 );
 
-void getSetting;

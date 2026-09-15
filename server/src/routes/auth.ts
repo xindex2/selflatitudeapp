@@ -2,12 +2,11 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { authenticator } from 'otplib';
 import QRCode from 'qrcode';
-import { one, run, nowIso, tx } from '../db/db.js';
+import { one, run, nowIso } from '../db/db.js';
 import { config } from '../config.js';
 import {
   hashPassword, verifyPassword, newId, randomToken, sessionHash, encrypt, decrypt,
 } from '../lib/crypto.js';
-import { sendMail } from '../lib/mail.js';
 import { audit } from '../lib/audit.js';
 import { badRequest, notFound, parse, unauthorized, wrap, HttpError, limiter } from '../lib/http.js';
 import {
@@ -395,6 +394,3 @@ authRouter.post(
   }),
 );
 
-// Keep tx import used for future multi-step flows
-void tx;
-void sendMail;

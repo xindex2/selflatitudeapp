@@ -358,20 +358,16 @@ export default function ChatPage() {
 
   async function regenerate() {
     if (!conversation || streaming) return;
-    // The reply is only removed once the stream actually starts: the server can still
+    // The reply is only dropped once the stream actually starts: the server can still
     // refuse (busy, no usage left, Companion unavailable) and then it must stay on screen.
-    let removed: { message: Message; index: number } | null = null;
     const dropLastAssistant = () => {
       setMessages((m) => {
         let idx = -1;
         for (let i = m.length - 1; i >= 0; i--) if (m[i].role === 'assistant') { idx = i; break; }
-        if (idx < 0) return m;
-        removed = { message: m[idx], index: idx };
-        return m.filter((_, i) => i !== idx);
+        return idx < 0 ? m : m.filter((_, i) => i !== idx);
       });
     };
     await runStream(`/api/conversations/${conversation.id}/regenerate`, {}, undefined, dropLastAssistant);
-    void removed;
   }
 
   async function stop() {

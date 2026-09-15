@@ -4,7 +4,7 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { all, getSetting, setSetting, run, one } from '../../db/db.js';
+import { getSetting, setSetting, run, one } from '../../db/db.js';
 import { config } from '../../config.js';
 import { encrypt } from '../../lib/crypto.js';
 import { badRequest, parse, wrap } from '../../lib/http.js';
@@ -261,4 +261,3 @@ adminSettingsRouter.post(
   }),
 );
 
-void all;

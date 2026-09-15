@@ -6,7 +6,6 @@ import { hashPassword, newId, randomToken, sessionHash, generateTempPassword } f
 import { badRequest, notFound, parse, wrap } from '../../lib/http.js';
 import { requireSuperAdmin, destroyAllSessions, type SessionUser } from '../../middleware/auth.js';
 import { audit } from '../../lib/audit.js';
-import { sendMail } from '../../lib/mail.js';
 import { getUsageStatus, usageHistory } from '../../lib/usage.js';
 import { issuePasswordReset } from '../auth.js';
 import { sendTemplate } from '../../lib/mail.js';
@@ -326,4 +325,3 @@ function addMonths(d: Date, months: number): string {
   return x.toISOString().slice(0, 10);
 }
 
-void sendMail;

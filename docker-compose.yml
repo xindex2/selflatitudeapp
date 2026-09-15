@@ -1,0 +1,38 @@
+# Production: app container + nginx reverse proxy with TLS termination.
+# Usage:  docker compose up -d --build
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DB_PATH: /data/db/companion.db
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - companion-data:/data
+    expose:
+      - "4000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./deploy/certs:/etc/nginx/certs:ro       # fullchain.pem + privkey.pem (see docs/DEPLOY.md)
+      - certbot-www:/var/www/certbot
+
+volumes:
+  companion-data:
+  certbot-www:

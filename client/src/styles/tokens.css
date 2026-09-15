@@ -1,0 +1,47 @@
+/* SelfLatitude Companion - design tokens (from the App Color and UI Style Guide) */
+:root {
+  --sl-bg-app: #f6f8f9;
+  --sl-bg-sidebar: #f1f4f5;
+  --sl-surface: #ffffff;
+  --sl-surface-warm: #f8f1ed;
+  --sl-surface-warm-soft: #fbf8f5;
+  --sl-text-primary: #282725;
+  --sl-text-secondary: #66747b;
+  --sl-action-primary: #405f73;
+  --sl-action-primary-hover: #334e60;
+  --sl-brand-secondary: #5f7f96;
+  --sl-surface-subtle: #eaf0f3;
+  --sl-border: #dce3e6;
+  --sl-selected: #dde8ed;
+  --sl-selected-hover: #d4e1e7;
+  --sl-focus: #8faaba;
+  --sl-disabled: #bcc8ce;
+  --sl-success: #3f7867;
+  --sl-success-bg: #e8f2ee;
+  --sl-warning: #a66f2c;
+  --sl-warning-bg: #faf0df;
+  --sl-error: #b65050;
+  --sl-error-hover: #9c3f3f;
+  --sl-error-bg: #f9eaea;
+  --sl-info: #4e7187;
+  --sl-info-bg: #e9f1f5;
+
+  --sl-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sl-font-display: 'Libre Baskerville', Baskerville, 'Times New Roman', serif;
+
+  --sl-radius-sm: 8px;
+  --sl-radius: 10px;
+  --sl-radius-lg: 14px;
+  --sl-radius-card: 14px;
+  --sl-shadow: 0 1px 2px rgba(40, 39, 37, 0.06), 0 4px 16px rgba(40, 39, 37, 0.05);
+
+  --sl-space-1: 4px;
+  --sl-space-2: 8px;
+  --sl-space-3: 16px;
+  --sl-space-4: 24px;
+  --sl-space-5: 32px;
+  --sl-space-6: 48px;
+
+  --sl-content-max: 760px;
+  --sl-sidebar-w: 280px;
+}

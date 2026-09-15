@@ -1,0 +1,57 @@
+/* Settings & Privacy pages: white cards on the app background, restrained status colors */
+.settings-section { scroll-margin-top: 24px; }
+.settings-section > h2 { margin-bottom: 12px; }
+.settings-card { display: flex; flex-direction: column; gap: 16px; }
+.settings-card .card-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.settings-card .card-title h3 { display: flex; align-items: center; gap: 8px; }
+.settings-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.settings-actions.end { justify-content: flex-end; }
+.settings-form { display: flex; flex-direction: column; gap: 14px; max-width: 480px; }
+.settings-note { font-size: 13.5px; color: var(--sl-text-secondary); margin: 0; }
+
+/* Usage meter */
+.usage-meter { display: flex; flex-direction: column; gap: 8px; }
+.usage-meter .bar { height: 10px; border-radius: 999px; background: var(--sl-surface-subtle); overflow: hidden; }
+.usage-meter .bar > span { display: block; height: 100%; border-radius: 999px; background: var(--sl-action-primary); transition: width 200ms ease; }
+.usage-meter .bar.warning > span { background: var(--sl-warning); }
+.usage-meter .bar.error > span { background: var(--sl-error); }
+.usage-meter .stats { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 14.5px; }
+.usage-meter .stats strong { font-weight: 600; }
+
+/* Read-only value rows (email, key summary, membership) */
+.kv { display: flex; flex-direction: column; gap: 10px; }
+.kv-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 0; border-bottom: 1px solid var(--sl-border); }
+.kv-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.kv-row .k { color: var(--sl-text-secondary); font-size: 14px; }
+.kv-row .v { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.04em; }
+
+/* Password input with show/hide */
+.input-with-btn { position: relative; }
+.input-with-btn .input { padding-right: 44px; }
+.input-with-btn .btn.icon { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); min-height: 36px; min-width: 36px; }
+
+/* MFA setup */
+.mfa-setup { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+.mfa-setup img { width: 180px; height: 180px; border: 1px solid var(--sl-border); border-radius: var(--sl-radius); background: #fff; }
+.mfa-setup .secret { font-size: 13.5px; word-break: break-all; }
+.mfa-setup .side { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 12px; }
+
+/* Privacy: action rows */
+.action-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 0; border-bottom: 1px solid var(--sl-border); }
+.action-row:first-child { padding-top: 0; }
+.action-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.action-row .text { flex: 1; min-width: 200px; }
+.action-row .text strong { display: block; font-weight: 600; font-size: 15px; }
+.action-row .text span { font-size: 13.5px; color: var(--sl-text-secondary); }
+.card.danger-zone { border-color: var(--sl-error); }
+.card.danger-zone h3 { color: var(--sl-error); display: flex; align-items: center; gap: 8px; }
+
+.request-list { display: flex; flex-direction: column; gap: 10px; }
+.request-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px; border: 1px solid var(--sl-border); border-radius: var(--sl-radius); }
+.request-item .msg { margin: 4px 0 0; font-size: 14px; color: var(--sl-text-secondary); white-space: pre-wrap; }
+
+.settings-footer { display: flex; justify-content: flex-start; padding-top: 8px; border-top: 1px solid var(--sl-border); }
+
+.info-list { margin: 0; padding-left: 20px; font-size: 14.5px; }
+.info-list li { margin-bottom: 6px; }

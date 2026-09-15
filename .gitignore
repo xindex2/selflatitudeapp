@@ -1,0 +1,31 @@
+# Dependencies and build output
+node_modules/
+dist/
+
+# Secrets - never commit these
+.env
+.env.*
+!.env.example
+server/.env
+
+# Runtime data (database, course files, avatars)
+server/data/
+server/uploads/
+*.db
+*.db-wal
+*.db-shm
+
+# Backups and certificates
+backups/
+*.tar.gz.enc
+*.tar.gz.enc.sha256
+deploy/certs/
+
+# Editor and OS noise
+.DS_Store
+*.log
+.idea/
+.vscode/
+
+# TypeScript incremental build info
+*.tsbuildinfo

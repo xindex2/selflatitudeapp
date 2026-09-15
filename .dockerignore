@@ -1,0 +1,23 @@
+# Never let secrets or live data into the build context.
+.env
+.env.*
+**/.env
+**/.env.*
+server/data
+server/uploads
+backups
+deploy/certs
+
+# Build output and dependencies are produced inside the image.
+node_modules
+**/node_modules
+client/dist
+server/dist
+
+# Not needed to build.
+.git
+.gitignore
+.claude
+*.md
+!README.md
+selflatitudelogo

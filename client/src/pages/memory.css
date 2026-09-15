@@ -1,0 +1,30 @@
+/* Memory page: white cards on the app background, category chips in pale slate */
+.memory-list { display: flex; flex-direction: column; gap: 12px; }
+
+.memory-card { display: flex; gap: 16px; align-items: flex-start; }
+.memory-card.pending { border-left: 3px solid var(--sl-warning); }
+.memory-card .body { flex: 1; min-width: 0; }
+.memory-card .content { margin: 8px 0; font-size: 15.5px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+.memory-card.disabled-state .content { color: var(--sl-text-secondary); }
+.memory-card .controls { display: flex; gap: 6px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.memory-card .chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.memory-card .chip.category { background: var(--sl-surface-subtle); color: var(--sl-text-primary); }
+.memory-card .chip.neutral { background: var(--sl-surface-subtle); color: var(--sl-text-secondary); }
+.memory-card .source { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.memory-card .source a { color: var(--sl-brand-secondary); }
+
+.memory-edit { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.memory-edit .select { max-width: 240px; }
+.memory-edit .textarea { min-height: 80px; }
+.memory-edit .actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+
+.memory-section-title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.memory-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.memory-footer { display: flex; justify-content: center; padding-top: 8px; }
+.char-count { font-size: 12.5px; color: var(--sl-text-secondary); text-align: right; }
+.char-count.over { color: var(--sl-error); }
+
+@media (max-width: 640px) {
+  .memory-card { flex-direction: column; }
+  .memory-card .controls { justify-content: flex-start; width: 100%; }
+}

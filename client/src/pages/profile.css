@@ -1,0 +1,30 @@
+.avatar-editor { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+.avatar-editor .avatar { border: 1px solid var(--sl-border); }
+
+/* Account row in the sidebar */
+.account-button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 8px 10px; border: 1px solid transparent; border-radius: 10px;
+  background: transparent; cursor: pointer; text-align: left; min-height: 48px;
+}
+.account-button:hover { background: var(--sl-selected); }
+.account-button .who { min-width: 0; flex: 1; }
+.account-button .who .n { font-size: 14px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-button .who .e { font-size: 12.5px; color: var(--sl-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-menu { right: auto; left: 8px; bottom: 100%; top: auto; margin-bottom: 4px; min-width: 210px; }
+.account-menu a { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 6px; font-size: 14px; text-decoration: none; color: var(--sl-text-primary); }
+.account-menu a:hover { background: var(--sl-surface-subtle); }
+.account-menu .sep { height: 1px; background: var(--sl-border); margin: 4px 0; }
+
+/* Help page */
+.help-card .contact { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.help-card .contact a { font-weight: 600; font-size: 17px; }
+.faq { border-top: 1px solid var(--sl-border); }
+.faq details { border-bottom: 1px solid var(--sl-border); }
+.faq summary { padding: 14px 4px; cursor: pointer; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 12px; align-items: center; min-height: 48px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--sl-text-secondary); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: '−'; }
+.faq .answer { padding: 0 4px 16px; color: var(--sl-text-secondary); font-size: 14.5px; }
+.faq .answer p { margin: 0 0 8px; }
+.faq .answer p:last-child { margin: 0; }

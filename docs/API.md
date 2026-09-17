@@ -2,7 +2,7 @@
 
 All endpoints are under `/api`, JSON in / JSON out, authenticated by the `sl_session` httpOnly cookie.
 Errors: `{ error: string, code: string, ...extra }` with an HTTP status. Codes you will see:
-`unauthorized` (401), `forbidden` (403), `mfa_required` (403), `not_found` (404), `validation` (400),
+`unauthorized` (401), `forbidden` (403), `mfa_required` (403), `not_found` (404), `validation` (400), `bad_json` (400),
 `usage_exhausted` (402, extra `resetDate`), `model_requires_key` (402), `key_invalid` (400), `busy` (400),
 `companion_unavailable` (503), `registration_closed` (403), `too_many_attempts` (429),
 `bad_origin` (403, the request carried an `Origin` that is not `APP_URL` or one of `ALLOWED_ORIGINS`),

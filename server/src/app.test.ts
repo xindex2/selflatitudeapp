@@ -61,6 +61,14 @@ describe('auth and access control', () => {
     expect(conv.data.code).toBe('forbidden');
   });
 
+  it('answers a malformed JSON body with 400, not a server error', async () => {
+    const res = await fetch(base + '/api/auth/login', {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: '{"email": "a@b.c", "password": ',
+    });
+    expect(res.status).toBe(400);
+    expect((await res.json()).code).toBe('bad_json');
+  });
+
   it('rejects wrong passwords and unauthenticated access', async () => {
     const c = new Client();
     expect((await c.req('POST', '/api/auth/login', { email: 'stu@test.local', password: 'nope' })).status).toBe(401);

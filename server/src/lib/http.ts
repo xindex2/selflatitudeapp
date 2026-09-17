@@ -47,6 +47,10 @@ export function errorHandler(err: any, _req: Request, res: Response, _next: Next
     res.status(err.status).json({ error: err.message, code: err.code, ...(err.extra ?? {}) });
     return;
   }
+  if (err?.type === 'entity.parse.failed') {
+    res.status(400).json({ error: 'The request body is not valid JSON.', code: 'bad_json' });
+    return;
+  }
   if (err?.type === 'entity.too.large') {
     res.status(413).json({ error: 'Request too large.', code: 'too_large' });
     return;
